@@ -1,0 +1,14 @@
+/* 
+  Localizable.strings
+  GitDev
+
+  Created by Louise Nicolas Namoc on 12/13/20.
+  Copyright © 2020 Louise Nicolas Namoc. All rights reserved.
+*/
+
+
+user.list.title = "GitHub Developers";
+cancel = "Cancel";
+okay = "Okay";
+err.message = "Something Went Wrong";
+

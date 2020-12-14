@@ -109,4 +109,61 @@ class CDManager {
       print(error)
     }
   }
+
+  func saveNotes(dev: DevDetailsResponse, notes: String, onSuccess: @escaping SingleResult<Bool>) {
+    let newNotes = DevNotes(context: managedObject)
+    newNotes.id = Int32(dev.id)
+    newNotes.notes = notes
+
+    let fetch = NSFetchRequest<Devs>(entityName: "Devs")
+
+    let predicate = NSPredicate(format: "id = '\(dev.id)'")
+    fetch.predicate = predicate
+    do {
+      let result = try persistentContainer.viewContext.fetch(fetch)
+      if let objectToUpdate = result.first {
+        objectToUpdate.setValue(notes, forKey: "notes")
+      }
+    } catch {
+      print(error)
+    }
+    saveContext()
+    onSuccess(true)
+  }
+
+  func thereIsNotes(id: Int) -> Bool {
+    let fetch = NSFetchRequest<Devs>(entityName: "Devs")
+
+    let predicate = NSPredicate(format: "id = '\(id)'")
+    fetch.predicate = predicate
+    do {
+      let result = try persistentContainer.viewContext.fetch(fetch)
+      if let item = result.first {
+        if let note = item.notes {
+          return note.isEmpty ? false : true
+        }
+      }
+    } catch {
+      print(error)
+    }
+    return false
+  }
+
+  func getNotesById(id: Int) -> String {
+    let fetch = NSFetchRequest<Devs>(entityName: "Devs")
+
+    let predicate = NSPredicate(format: "id = '\(id)'")
+    fetch.predicate = predicate
+    do {
+      let result = try persistentContainer.viewContext.fetch(fetch)
+      if let item = result.first {
+        if let note = item.notes {
+          return note
+        }
+      }
+    } catch {
+      print(error)
+    }
+    return .empty
+  }
 }

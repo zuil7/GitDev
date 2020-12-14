@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		487C854A25879CF600267DA9 /* SkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487C854925879CF600267DA9 /* SkeletonView.swift */; };
 		48C3AD98258596C0005D3316 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 48C3AD97258596C0005D3316 /* Localizable.strings */; };
 		48C3ADB125859790005D3316 /* Alias.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C3ADB025859790005D3316 /* Alias.swift */; };
 		48C3ADBC258598CA005D3316 /* UserListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C3ADBA258598CA005D3316 /* UserListViewController.swift */; };
@@ -26,7 +27,6 @@
 		48C3AE2F2585E17D005D3316 /* ImageCacheConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C3AE2E2585E17D005D3316 /* ImageCacheConfig.swift */; };
 		48C3AE362585F4A6005D3316 /* CDDevs.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 48C3AE342585F4A6005D3316 /* CDDevs.xcdatamodeld */; };
 		48C3AE3B2585F4C2005D3316 /* CDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C3AE3A2585F4C2005D3316 /* CDManager.swift */; };
-		48C3AE6025860300005D3316 /* Devs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C3AE5E25860300005D3316 /* Devs.swift */; };
 		48CDC9D325871BBB00D7FDC2 /* DevProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CDC9D125871BBB00D7FDC2 /* DevProfileViewController.swift */; };
 		48CDC9D425871BBB00D7FDC2 /* DevProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48CDC9D225871BBB00D7FDC2 /* DevProfileViewController.xib */; };
 		48CDC9D92587263F00D7FDC2 /* Designables+Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CDC9D82587263F00D7FDC2 /* Designables+Button.swift */; };
@@ -35,6 +35,8 @@
 		48CDC9E825872AEC00D7FDC2 /* DevDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CDC9E725872AEC00D7FDC2 /* DevDetailViewModel.swift */; };
 		48CDC9ED25872B0900D7FDC2 /* DevDetailsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CDC9EC25872B0900D7FDC2 /* DevDetailsService.swift */; };
 		48CDC9F225872C3600D7FDC2 /* DevDetailsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CDC9F125872C3600D7FDC2 /* DevDetailsResponse.swift */; };
+		48CDCA2D258752B300D7FDC2 /* Devs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CDCA2C258752B300D7FDC2 /* Devs.swift */; };
+		48CDCA8A258755EF00D7FDC2 /* DevNotes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CDCA88258755EF00D7FDC2 /* DevNotes.swift */; };
 		48E29837247A37FC00B6A520 /* GitDevTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E29836247A37FC00B6A520 /* GitDevTests.swift */; };
 		48E29842247A37FC00B6A520 /* GitDevUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E29841247A37FC00B6A520 /* GitDevUITests.swift */; };
 		48FD44C624839C0E004975D4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48FD44C024839C0E004975D4 /* ViewController.swift */; };
@@ -66,6 +68,7 @@
 
 /* Begin PBXFileReference section */
 		14BF60F8CC1561DD64184B19 /* Pods-GitDev.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitDev.debug.xcconfig"; path = "Target Support Files/Pods-GitDev/Pods-GitDev.debug.xcconfig"; sourceTree = "<group>"; };
+		487C854925879CF600267DA9 /* SkeletonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonView.swift; sourceTree = "<group>"; };
 		48C3AD97258596C0005D3316 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		48C3ADB025859790005D3316 /* Alias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alias.swift; sourceTree = "<group>"; };
 		48C3ADBA258598CA005D3316 /* UserListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserListViewController.swift; sourceTree = "<group>"; };
@@ -85,7 +88,6 @@
 		48C3AE2E2585E17D005D3316 /* ImageCacheConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheConfig.swift; sourceTree = "<group>"; };
 		48C3AE352585F4A6005D3316 /* Devs.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Devs.xcdatamodel; sourceTree = "<group>"; };
 		48C3AE3A2585F4C2005D3316 /* CDManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDManager.swift; sourceTree = "<group>"; };
-		48C3AE5E25860300005D3316 /* Devs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Devs.swift; sourceTree = SOURCE_ROOT; };
 		48CDC9D125871BBB00D7FDC2 /* DevProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevProfileViewController.swift; sourceTree = "<group>"; };
 		48CDC9D225871BBB00D7FDC2 /* DevProfileViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DevProfileViewController.xib; sourceTree = "<group>"; };
 		48CDC9D82587263F00D7FDC2 /* Designables+Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Designables+Button.swift"; sourceTree = "<group>"; };
@@ -94,6 +96,8 @@
 		48CDC9E725872AEC00D7FDC2 /* DevDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevDetailViewModel.swift; sourceTree = "<group>"; };
 		48CDC9EC25872B0900D7FDC2 /* DevDetailsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevDetailsService.swift; sourceTree = "<group>"; };
 		48CDC9F125872C3600D7FDC2 /* DevDetailsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevDetailsResponse.swift; sourceTree = "<group>"; };
+		48CDCA2C258752B300D7FDC2 /* Devs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Devs.swift; sourceTree = "<group>"; };
+		48CDCA88258755EF00D7FDC2 /* DevNotes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevNotes.swift; sourceTree = SOURCE_ROOT; };
 		48E2981C247A37F900B6A520 /* GitDev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GitDev.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		48E2982D247A37FC00B6A520 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		48E29832247A37FC00B6A520 /* GitDevTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GitDevTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -224,6 +228,7 @@
 				48CDC9D82587263F00D7FDC2 /* Designables+Button.swift */,
 				48CDC9DD2587264F00D7FDC2 /* Designables+UIView.swift */,
 				48CDC9E2258726B200D7FDC2 /* Designables+UILabel.swift */,
+				487C854925879CF600267DA9 /* SkeletonView.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -259,7 +264,8 @@
 		48C3AE3F2585F992005D3316 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
-				48C3AE5E25860300005D3316 /* Devs.swift */,
+				48CDCA88258755EF00D7FDC2 /* DevNotes.swift */,
+				48CDCA2C258752B300D7FDC2 /* Devs.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -631,12 +637,15 @@
 				48C3AE1F2585D1E8005D3316 /* UIViewcontroller+AlertMessage.swift in Sources */,
 				48C3AE362585F4A6005D3316 /* CDDevs.xcdatamodeld in Sources */,
 				48CDC9D92587263F00D7FDC2 /* Designables+Button.swift in Sources */,
+				487C854A25879CF600267DA9 /* SkeletonView.swift in Sources */,
 				48CDC9F225872C3600D7FDC2 /* DevDetailsResponse.swift in Sources */,
 				48CDC9ED25872B0900D7FDC2 /* DevDetailsService.swift in Sources */,
+				48CDCA8A258755EF00D7FDC2 /* DevNotes.swift in Sources */,
 				48C3ADC125859995005D3316 /* DevListCell.swift in Sources */,
 				48C3ADE52585B438005D3316 /* UIImageView+CornerRadius.swift in Sources */,
 				48FD44C824839C0E004975D4 /* SceneDelegate.swift in Sources */,
 				48C3AE2F2585E17D005D3316 /* ImageCacheConfig.swift in Sources */,
+				48CDCA2D258752B300D7FDC2 /* Devs.swift in Sources */,
 				48CDC9D325871BBB00D7FDC2 /* DevProfileViewController.swift in Sources */,
 				48C3ADD22585B0F0005D3316 /* BaseService.swift in Sources */,
 				48C3ADFD2585B8DC005D3316 /* DevListViewModel.swift in Sources */,
@@ -648,7 +657,6 @@
 				48C3AE2A2585E139005D3316 /* ImageCaching.swift in Sources */,
 				48C3ADB125859790005D3316 /* Alias.swift in Sources */,
 				48C3AE3B2585F4C2005D3316 /* CDManager.swift in Sources */,
-				48C3AE6025860300005D3316 /* Devs.swift in Sources */,
 				48C3ADF82585B8A4005D3316 /* DevListResponse.swift in Sources */,
 				48C3AE252585E113005D3316 /* ImageLoader.swift in Sources */,
 				48C3ADF32585B59E005D3316 /* Enums.swift in Sources */,

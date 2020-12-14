@@ -3,11 +3,13 @@ PODS:
   - R.swift (5.1.0):
     - R.swift.Library (~> 5.1.0)
   - R.swift.Library (5.1.0)
+  - SkeletonView (1.9)
   - SwiftLint (0.39.1)
 
 DEPENDENCIES:
   - IQKeyboardManagerSwift
   - R.swift
+  - SkeletonView
   - SwiftLint
 
 SPEC REPOS:
@@ -15,14 +17,16 @@ SPEC REPOS:
     - IQKeyboardManagerSwift
     - R.swift
     - R.swift.Library
+    - SkeletonView
     - SwiftLint
 
 SPEC CHECKSUMS:
   IQKeyboardManagerSwift: 0fb93310284665245591f50f7a5e38de615960b7
   R.swift: 8cbc4fc69b740305b6a17c8a8ed968eb788962d9
   R.swift.Library: fa85ce1e0d0b7e818cd9e080df910ba54d2776cc
+  SkeletonView: f72ac4df69730e48324efae062ba580c2fce974d
   SwiftLint: 55e96a4a4d537d4a3156859fc1c54bd24851a046
 
-PODFILE CHECKSUM: 5d1ce9e45872b40fb3822aca37b687de2c52b4e5
+PODFILE CHECKSUM: 7f9c972a8f9e2280672ef8fe3ce290ea39fe3c3c
 
 COCOAPODS: 1.10.0

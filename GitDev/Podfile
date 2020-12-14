@@ -9,5 +9,5 @@ target 'GitDev' do
   pod 'IQKeyboardManagerSwift'
   pod 'SwiftLint'
   pod 'R.swift'
-
+  pod 'SkeletonView'
 end

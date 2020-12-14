@@ -31,6 +31,11 @@ class UserListViewController: UIViewController {
     setupTableView()
     getUsers()
   }
+
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    tableView.reloadData()
+  }
 }
 
 private extension UserListViewController {
@@ -59,7 +64,7 @@ private extension UserListViewController {
 
 extension UserListViewController: UITableViewDataSource, UITableViewDelegate {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return viewModel.devList.count
+    return viewModel.devList.count == 0 ? 10 : viewModel.devList.count
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -67,8 +72,13 @@ extension UserListViewController: UITableViewDataSource, UITableViewDelegate {
       withIdentifier: String(describing: DevListCell.self),
       for: indexPath
     ) as! DevListCell
-    let devs = viewModel.devList[indexPath.row]
-    cell.configureCell(user: devs, idx: indexPath.row)
+    if viewModel.devList.count != 0 {
+      cell.hideSkeletalView()
+      let devs = viewModel.devList[indexPath.row]
+      cell.configureCell(user: devs, idx: indexPath.row)
+    } else {
+      cell.showAnimatedGradientSkeleton()
+    }
 
     return cell
   }
@@ -99,9 +109,9 @@ extension UserListViewController: UITableViewDataSource, UITableViewDelegate {
       }
     }
   }
-  
+
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    let vc = DevProfileViewController(nibName: "DevProfileViewController", bundle: nil) 
+    let vc = DevProfileViewController(nibName: "DevProfileViewController", bundle: nil)
     vc.bindVM(username: viewModel.devList[indexPath.row].login ?? .empty)
     navigationController?.pushViewController(vc, animated: true)
   }

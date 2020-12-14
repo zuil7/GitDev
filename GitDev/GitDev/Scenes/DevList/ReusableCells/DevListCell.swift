@@ -7,6 +7,7 @@
 //
 
 import Combine
+import SkeletonView
 import UIKit
 
 class DevListCell: UITableViewCell {
@@ -14,15 +15,17 @@ class DevListCell: UITableViewCell {
     let image = UIImageView()
     image.translatesAutoresizingMaskIntoConstraints = false
     image.backgroundColor = .lightGray
+    image.isSkeletonable = true
     contentView.addSubview(image)
     return image
   }()
 
   lazy var usernameLabel: UILabel = {
     let label = UILabel()
-    label.numberOfLines = 0
+    label.numberOfLines = 1
     label.font = .boldSystemFont(ofSize: 16)
-    label.text = "Test"
+    label.text = "  "
+    label.isSkeletonable = true
     contentView.addSubview(label)
     return label
   }()
@@ -31,7 +34,8 @@ class DevListCell: UITableViewCell {
     let label = UILabel()
     label.numberOfLines = 1
     label.font = .boldSystemFont(ofSize: 16)
-    label.text = "Test"
+    label.text = "  "
+    label.isSkeletonable = true
     contentView.addSubview(label)
     return label
   }()
@@ -39,8 +43,9 @@ class DevListCell: UITableViewCell {
   lazy var notesUIImageview: UIImageView = {
     let image = UIImageView()
     image.translatesAutoresizingMaskIntoConstraints = false
-    image.backgroundColor = .red
+    image.contentMode = .scaleAspectFit
     contentView.addSubview(image)
+    image.image = R.image.notes()
     return image
   }()
 
@@ -48,6 +53,7 @@ class DevListCell: UITableViewCell {
 
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
+    isSkeletonable = true
     setupUIElements()
   }
 
@@ -62,7 +68,21 @@ class DevListCell: UITableViewCell {
     imageRequester?.cancel()
   }
 
+  override func awakeFromNib() {
+    super.awakeFromNib()
+    notesUIImageview.isHidden = true
+  }
+
+  func showSkeletalView() {
+    [avatarUIImageView, usernameLabel, uriLabel].forEach { $0?.showAnimatedSkeleton() }
+  }
+
+  func hideSkeletalView() {
+    [avatarUIImageView, usernameLabel, uriLabel].forEach { $0?.hideSkeleton() }
+  }
+
   func configureCell(user: Devs, idx: Int) {
+    hideSkeletalView()
     let changeColor = (idx + 1) % 4 == 0 && idx > 0
 
     usernameLabel.text = user.login
@@ -77,6 +97,7 @@ class DevListCell: UITableViewCell {
         }
       }
     }
+    notesUIImageview.isHidden = !CDManager.shared.thereIsNotes(id: Int(user.id))
   }
 
   private func changeImage(image: UIImage?) {
@@ -105,15 +126,23 @@ private extension DevListCell {
     usernameLabel.translatesAutoresizingMaskIntoConstraints = false
     usernameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15).isActive = true
     usernameLabel.leadingAnchor.constraint(equalTo: avatarUIImageView.trailingAnchor, constant: 10).isActive = true
+    NSLayoutConstraint.activate([
+      usernameLabel.widthAnchor.constraint(equalToConstant: 280),
+    ])
 
     uriLabel.translatesAutoresizingMaskIntoConstraints = false
     uriLabel.leadingAnchor.constraint(equalTo: avatarUIImageView.trailingAnchor, constant: 10).isActive = true
     uriLabel.topAnchor.constraint(equalTo: usernameLabel.bottomAnchor, constant: 10).isActive = true
 
+    NSLayoutConstraint.activate([
+      uriLabel.widthAnchor.constraint(equalToConstant: 250),
+    ])
+    
     notesUIImageview.translatesAutoresizingMaskIntoConstraints = false
     notesUIImageview.widthAnchor.constraint(equalToConstant: 30).isActive = true
     notesUIImageview.heightAnchor.constraint(equalToConstant: 30).isActive = true
     notesUIImageview.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
     notesUIImageview.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20).isActive = true
+    notesUIImageview.isHidden = true
   }
 }

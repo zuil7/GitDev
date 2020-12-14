@@ -39,6 +39,7 @@ public class Devs: NSManagedObject, Codable {
   @NSManaged public var type: String?
   @NSManaged public var siteAdmin: Bool
   @NSManaged public var avatarURL: String?
+  @NSManaged public var notes: String?
 
   public required convenience init(from decoder: Decoder) throws {
     guard let codingUserInfoKeyManagedObjectContext = CodingUserInfoKey.managedObjectContext,
@@ -67,24 +68,8 @@ public class Devs: NSManagedObject, Codable {
       receivedEventsURL = try values.decodeIfPresent(String.self, forKey: .receivedEventsURL) ?? .empty
       type = try values.decodeIfPresent(String.self, forKey: .type) ?? .empty
       siteAdmin = try values.decodeIfPresent(Bool.self, forKey: .siteAdmin) ?? false
+      notes = try values.decodeIfPresent(String.self, forKey: .notes) ?? .empty
 
-//        login = try values.decode(String.self, forKey: .login)
-//        id = Int32(try values.decode(Int.self, forKey: .id))
-//        nodeID = try values.decode(String.self, forKey: .nodeID)
-//        avatarURL = try values.decode(String.self, forKey: .avatarURL)
-//        gravatarID = try values.decode(String.self, forKey: .gravatarID)
-//        url = try values.decode(String.self, forKey: .url)
-//        htmlURL = try values.decode(String.self, forKey: .htmlURL)
-//        followersURL = try values.decode(String.self, forKey: .followersURL)
-//        gistsURL = try values.decode(String.self, forKey: .gistsURL)
-//        starredURL = try values.decode(String.self, forKey: .starredURL)
-//        subscriptionsURL = try values.decode(String.self, forKey: .subscriptionsURL)
-//        organizationsURL = try values.decode(String.self, forKey: .organizationsURL)
-//        reposURL = try values.decode(String.self, forKey: .reposURL)
-//        eventsURL = try values.decode(String.self, forKey: .eventsURL)
-//        receivedEventsURL = try values.decode(String.self, forKey: .receivedEventsURL)
-//        type = try values.decode(String.self, forKey: .type)
-//        siteAdmin = try values.decode(Bool.self, forKey: .siteAdmin)
 
     } catch {
       print("error")
@@ -110,6 +95,8 @@ public class Devs: NSManagedObject, Codable {
     try container.encode(receivedEventsURL, forKey: .receivedEventsURL)
     try container.encode(type, forKey: .type)
     try container.encode(siteAdmin, forKey: .siteAdmin)
+    try container.encode(notes, forKey: .notes)
+
   }
 
   enum CodingKeys: String, CodingKey {
@@ -130,5 +117,7 @@ public class Devs: NSManagedObject, Codable {
     case receivedEventsURL = "received_events_url"
     case type
     case siteAdmin = "site_admin"
+    case notes = "notes"
+
   }
 }

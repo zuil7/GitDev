@@ -44,7 +44,7 @@ class DevListCell: UITableViewCell {
     return image
   }()
 
-  private var cancellable: AnyCancellable?
+  private var imageRequester: AnyCancellable?
 
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -59,7 +59,7 @@ class DevListCell: UITableViewCell {
   public override func prepareForReuse() {
     super.prepareForReuse()
     avatarUIImageView.image = nil
-    cancellable?.cancel()
+    imageRequester?.cancel()
   }
 
   func configureCell(user: Devs, idx: Int) {
@@ -68,7 +68,7 @@ class DevListCell: UITableViewCell {
     usernameLabel.text = user.login
     uriLabel.text = user.url
     if let url = URL(string: user.avatarURL ?? .empty) {
-      cancellable = ImageLoader.shared.loadImage(from: url).sink { [weak self] image in
+      imageRequester = ImageLoader.shared.loadImage(from: url).sink { [weak self] image in
         guard let s = self else { return }
         if changeColor {
           s.changeImage(image: image)

@@ -7,8 +7,17 @@
 */
 
 
-user.list.title = "GitHub Developers";
+user.list.title = "Devs";
 cancel = "Cancel";
 okay = "Okay";
 err.message = "Something Went Wrong";
+followers.title = "Followers: %d";
+following.title = "Following: %d";
 
+name.title = "Name: %@";
+company.title = "Company: %@";
+blog.title = "Blog URL: %@";
+
+no.name = "Name not indicated";
+no.company = "Company not indicated";
+no.blog = "No blog URL";

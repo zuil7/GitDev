@@ -45,6 +45,7 @@ private extension UserListViewController {
   func setupSearchBar() {
     title = S.userListTitle()
     searchBar.delegate = self
+    navigationController?.navigationBar.prefersLargeTitles = true
     navigationItem.searchController = searchBar
   }
 
@@ -85,11 +86,10 @@ extension UserListViewController: UITableViewDataSource, UITableViewDelegate {
     if indexPath.row == lastItem {
       let spinner = UIActivityIndicatorView(style: .medium)
       spinner.startAnimating()
-      spinner.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: tableView.bounds.width, height: CGFloat(44))
+      spinner.frame = CGRect(x: 0.0, y: 0.0, width: tableView.bounds.width, height: 44.0)
       tableView.tableFooterView = spinner
 
       if !isSearching {
-        debugPrint("WILLDISPLAY")
         getUsers()
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
           tableView.tableFooterView = nil
@@ -98,6 +98,12 @@ extension UserListViewController: UITableViewDataSource, UITableViewDelegate {
         tableView.tableFooterView = nil
       }
     }
+  }
+  
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    let vc = DevProfileViewController(nibName: "DevProfileViewController", bundle: nil) 
+    vc.bindVM(username: viewModel.devList[indexPath.row].login ?? .empty)
+    navigationController?.pushViewController(vc, animated: true)
   }
 }
 

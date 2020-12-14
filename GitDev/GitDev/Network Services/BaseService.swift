@@ -19,10 +19,8 @@ class BaseService {
     urlSession = URLSession(configuration: .default)
   }
 
-  func consumeAPI<T: Decodable>(_ decodableType: T.Type, request: BaseServiceProtocol, completion: OnCompletionHandler<T>? = nil) {
-    let dataTask = urlSession.dataTask(with: request.urlRequest) { data, response, error in
-      print("JSON String: \(String(data: data ?? Data(), encoding: .utf8))")
-
+  func consumeAPI<T: Decodable>(_ decodableType: T.Type, request: URLRequest, completion: OnCompletionHandler<T>? = nil) {
+    let dataTask = urlSession.dataTask(with: request) { data, response, error in
       guard let uriResponse = response as? HTTPURLResponse else {
         completion?(nil, error)
         return
@@ -31,6 +29,8 @@ class BaseService {
       let successRange = 200 ... 299
       if successRange.contains(uriResponse.statusCode) {
         guard let responseData = data else { return }
+        print("JSON String: \(String(data: responseData, encoding: .utf8))")
+
         do {
           guard let codingUserInfoKeyManagedObjectContext = CodingUserInfoKey.managedObjectContext else {
             fatalError("Error Core Data")

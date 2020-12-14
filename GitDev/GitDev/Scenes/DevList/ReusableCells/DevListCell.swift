@@ -62,14 +62,30 @@ class DevListCell: UITableViewCell {
     cancellable?.cancel()
   }
 
-  func configureCell(user: DevListResponseElement) {
+  func configureCell(user: Devs, idx: Int) {
+    let changeColor = (idx + 1) % 4 == 0 && idx > 0
+
     usernameLabel.text = user.login
     uriLabel.text = user.url
-    if let url = URL(string: user.avatarURL) {
+    if let url = URL(string: user.avatarURL ?? .empty) {
       cancellable = ImageLoader.shared.loadImage(from: url).sink { [weak self] image in
         guard let s = self else { return }
-        s.avatarUIImageView.image = image
+        if changeColor {
+          s.changeImage(image: image)
+        } else {
+          s.avatarUIImageView.image = image
+        }
       }
+    }
+  }
+
+  private func changeImage(image: UIImage?) {
+    if let filter = CIFilter(name: "CIColorInvert"),
+      let image = image,
+      let ciimage = CIImage(image: image) {
+      filter.setValue(ciimage, forKey: kCIInputImageKey)
+      let newImage = UIImage(ciImage: filter.outputImage!)
+      avatarUIImageView.image = newImage
     }
   }
 }

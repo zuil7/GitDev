@@ -11,6 +11,8 @@ import UIKit
 class UserListViewController: UIViewController {
   private lazy var searchBar: UISearchController = {
     let searchBar = UISearchController(searchResultsController: nil)
+    searchBar.searchResultsUpdater = self
+    searchBar.obscuresBackgroundDuringPresentation = false
     return searchBar
   }()
 
@@ -21,7 +23,8 @@ class UserListViewController: UIViewController {
   }()
 
   private var viewModel = DevListViewModel(task: DevListService())
-
+  private var queue = OperationQueue()
+  private var isSearching: Bool = false
   override func viewDidLoad() {
     super.viewDidLoad()
     setupSearchBar()
@@ -41,6 +44,7 @@ private extension UserListViewController {
 
   func setupSearchBar() {
     title = S.userListTitle()
+    searchBar.delegate = self
     navigationItem.searchController = searchBar
   }
 
@@ -62,11 +66,8 @@ extension UserListViewController: UITableViewDataSource, UITableViewDelegate {
       withIdentifier: String(describing: DevListCell.self),
       for: indexPath
     ) as! DevListCell
-//    let user = viewModel.users[indexPath.row]
-//    cell.userProtocol = self.viewModel
-//    cell.configure(user, indexPath, serialQueue)
     let devs = viewModel.devList[indexPath.row]
-    cell.configureCell(user: devs)
+    cell.configureCell(user: devs, idx: indexPath.row)
 
     return cell
   }
@@ -74,12 +75,36 @@ extension UserListViewController: UITableViewDataSource, UITableViewDelegate {
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     return UITableView.automaticDimension
   }
+
+  func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//      if let reachability = try? Reachability(), reachability.connection == .unavailable {
+//          return
+//      }
+
+    let lastItem = viewModel.devList.count - 1
+    if indexPath.row == lastItem {
+      let spinner = UIActivityIndicatorView(style: .medium)
+      spinner.startAnimating()
+      spinner.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: tableView.bounds.width, height: CGFloat(44))
+      tableView.tableFooterView = spinner
+
+      if !isSearching {
+        debugPrint("WILLDISPLAY")
+        getUsers()
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
+          tableView.tableFooterView = nil
+        }
+      } else {
+        tableView.tableFooterView = nil
+      }
+    }
+  }
 }
 
 private extension UserListViewController {
   func onHandleSuccess() -> SingleResult<Bool> {
-    return { [weak self] _ in
-      guard let s = self else { return }
+    return { [weak self] status in
+      guard let s = self, status else { return }
       DispatchQueue.main.async {
         s.tableView.reloadData()
       }
@@ -91,5 +116,18 @@ private extension UserListViewController {
       guard let s = self else { return }
       s.presentAlertMessage(title: S.errMessage(), message: message)
     }
+  }
+}
+
+extension UserListViewController: UISearchControllerDelegate, UISearchResultsUpdating {
+  func updateSearchResults(for searchController: UISearchController) {
+    if let text = searchController.searchBar.text, !text.isEmpty {
+      isSearching = true
+      viewModel.searchProcess(text: text)
+    } else {
+      isSearching = false
+      viewModel.setOriginalList()
+    }
+    tableView.reloadData()
   }
 }

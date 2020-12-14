@@ -9,14 +9,14 @@
 import Foundation
 
 protocol DevListServiceProtocol {
-  func getDevList(onHandleCompletion: @escaping ResultClosure<DevListResponse>) 
+  func getDevList(id: Int, onHandleCompletion: @escaping ResultClosure<DevListResponse>)
 }
 
 final class DevListService: BaseService, DevListServiceProtocol {
-  func getDevList(onHandleCompletion: @escaping ResultClosure<DevListResponse>) {
+  func getDevList(id: Int, onHandleCompletion: @escaping ResultClosure<DevListResponse>) {
     consumeAPI(
       DevListResponse.self,
-      request: DevListRequest(),
+      request: DevListRequest(sinceID: id),
       completion: { result, err in
         guard err == nil else {
           return onHandleCompletion(nil, false, err?.localizedDescription)

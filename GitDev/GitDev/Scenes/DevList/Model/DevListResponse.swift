@@ -71,4 +71,4 @@ struct DevListResponseElement: Codable {
   }
 }
 
-typealias DevListResponse = [DevListResponseElement]
+typealias DevListResponse = [Devs]

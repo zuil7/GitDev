@@ -25,6 +25,9 @@
 		48C3AE252585E113005D3316 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C3AE242585E113005D3316 /* ImageLoader.swift */; };
 		48C3AE2A2585E139005D3316 /* ImageCaching.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C3AE292585E139005D3316 /* ImageCaching.swift */; };
 		48C3AE2F2585E17D005D3316 /* ImageCacheConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C3AE2E2585E17D005D3316 /* ImageCacheConfig.swift */; };
+		48C3AE362585F4A6005D3316 /* CDDevs.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 48C3AE342585F4A6005D3316 /* CDDevs.xcdatamodeld */; };
+		48C3AE3B2585F4C2005D3316 /* CDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C3AE3A2585F4C2005D3316 /* CDManager.swift */; };
+		48C3AE6025860300005D3316 /* Devs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C3AE5E25860300005D3316 /* Devs.swift */; };
 		48E29837247A37FC00B6A520 /* GitDevTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E29836247A37FC00B6A520 /* GitDevTests.swift */; };
 		48E29842247A37FC00B6A520 /* GitDevUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E29841247A37FC00B6A520 /* GitDevUITests.swift */; };
 		48FD44C624839C0E004975D4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48FD44C024839C0E004975D4 /* ViewController.swift */; };
@@ -74,6 +77,9 @@
 		48C3AE242585E113005D3316 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		48C3AE292585E139005D3316 /* ImageCaching.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCaching.swift; sourceTree = "<group>"; };
 		48C3AE2E2585E17D005D3316 /* ImageCacheConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheConfig.swift; sourceTree = "<group>"; };
+		48C3AE352585F4A6005D3316 /* Devs.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Devs.xcdatamodel; sourceTree = "<group>"; };
+		48C3AE3A2585F4C2005D3316 /* CDManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDManager.swift; sourceTree = "<group>"; };
+		48C3AE5E25860300005D3316 /* Devs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Devs.swift; sourceTree = SOURCE_ROOT; };
 		48E2981C247A37F900B6A520 /* GitDev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GitDev.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		48E2982D247A37FC00B6A520 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		48E29832247A37FC00B6A520 /* GitDevTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GitDevTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -233,6 +239,24 @@
 			path = ImageViewer;
 			sourceTree = "<group>";
 		};
+		48C3AE332585F48F005D3316 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				48C3AE3F2585F992005D3316 /* Entity */,
+				48C3AE342585F4A6005D3316 /* CDDevs.xcdatamodeld */,
+				48C3AE3A2585F4C2005D3316 /* CDManager.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		48C3AE3F2585F992005D3316 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				48C3AE5E25860300005D3316 /* Devs.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
 		48E29813247A37F900B6A520 = {
 			isa = PBXGroup;
 			children = (
@@ -258,10 +282,10 @@
 		48E2981E247A37F900B6A520 /* GitDev */ = {
 			isa = PBXGroup;
 			children = (
+				48C3AE332585F48F005D3316 /* CoreData */,
 				48C3ADEB2585B4D1005D3316 /* APIClient */,
 				48C3ADD02585B0E3005D3316 /* Network Services */,
 				48FD44C924839C7A004975D4 /* Resources */,
-				48FD44C424839C0E004975D4 /* Extensions */,
 				48C3ADDF2585B438005D3316 /* Helpers */,
 				48FD44B724839C0E004975D4 /* Scenes */,
 				48FD44BF24839C0E004975D4 /* Module */,
@@ -315,13 +339,6 @@
 				48C3ADF22585B59E005D3316 /* Enums.swift */,
 			);
 			path = Utility;
-			sourceTree = "<group>";
-		};
-		48FD44C424839C0E004975D4 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Extensions;
 			sourceTree = "<group>";
 		};
 		48FD44C924839C7A004975D4 /* Resources */ = {
@@ -573,6 +590,7 @@
 			files = (
 				48C3ADE62585B438005D3316 /* UITableView+Register.swift in Sources */,
 				48C3AE1F2585D1E8005D3316 /* UIViewcontroller+AlertMessage.swift in Sources */,
+				48C3AE362585F4A6005D3316 /* CDDevs.xcdatamodeld in Sources */,
 				48C3ADC125859995005D3316 /* DevListCell.swift in Sources */,
 				48C3ADEE2585B542005D3316 /* DevListRequest.swift in Sources */,
 				48C3ADE52585B438005D3316 /* UIImageView+CornerRadius.swift in Sources */,
@@ -586,6 +604,8 @@
 				48C3ADE72585B438005D3316 /* R.generated.swift in Sources */,
 				48C3AE2A2585E139005D3316 /* ImageCaching.swift in Sources */,
 				48C3ADB125859790005D3316 /* Alias.swift in Sources */,
+				48C3AE3B2585F4C2005D3316 /* CDManager.swift in Sources */,
+				48C3AE6025860300005D3316 /* Devs.swift in Sources */,
 				48C3ADF82585B8A4005D3316 /* DevListResponse.swift in Sources */,
 				48C3AE252585E113005D3316 /* ImageLoader.swift in Sources */,
 				48C3ADF32585B59E005D3316 /* Enums.swift in Sources */,
@@ -919,6 +939,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		48C3AE342585F4A6005D3316 /* CDDevs.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				48C3AE352585F4A6005D3316 /* Devs.xcdatamodel */,
+			);
+			currentVersion = 48C3AE352585F4A6005D3316 /* Devs.xcdatamodel */;
+			path = CDDevs.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 48E29814247A37F900B6A520 /* Project object */;
 }

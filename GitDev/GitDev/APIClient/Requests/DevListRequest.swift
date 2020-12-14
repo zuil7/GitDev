@@ -9,10 +9,11 @@
 import Foundation
 
 struct DevListRequest: BaseServiceProtocol {
-//    let params: GetUsersParameters
+  
+  let sinceID: Int
 
   var urlRequest: URLRequest {
-    let url: URL! = URL(string: "https://api.github.com/users?since=\(0)")
+    let url: URL! = URL(string: "https://api.github.com/users?since=\(sinceID)")
     var request = URLRequest(url: url)
 
     request.httpMethod = RestVerbs.GET.rawValue

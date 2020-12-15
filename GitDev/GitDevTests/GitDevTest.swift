@@ -9,7 +9,7 @@
 import XCTest
 @testable import GitDev
 
-class GitDevTests: XCTestCase {
+class GitDevTest: XCTestCase {
 
   private var viewModel = DevListViewModel(task: DevListService())
   private var devDetailViewModel = DevDetailViewModel(task: DevDetailsService())

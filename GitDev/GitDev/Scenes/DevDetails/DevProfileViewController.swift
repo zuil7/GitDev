@@ -49,7 +49,7 @@ class DevProfileViewController: UIViewController {
 private extension DevProfileViewController {
   func setupUIElements() {
     notesTextView.layer.borderWidth = 1
-    notesTextView.layer.borderColor = UIColor.black.cgColor
+    notesTextView.layer.borderColor = traitCollection.userInterfaceStyle == .dark ? UIColor.white.cgColor : UIColor.black.cgColor
     notesTextView.layer.cornerRadius = 5
     saveButton.isEnabled = false
   }

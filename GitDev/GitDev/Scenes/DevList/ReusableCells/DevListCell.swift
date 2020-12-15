@@ -45,7 +45,7 @@ class DevListCell: UITableViewCell {
     image.translatesAutoresizingMaskIntoConstraints = false
     image.contentMode = .scaleAspectFit
     contentView.addSubview(image)
-    image.image = R.image.notes()
+    image.image = R.image.postIt()
     return image
   }()
 

@@ -79,7 +79,9 @@ final class DevListViewModel: DevListViewModelProtocol {
   func searchProcess(text: String) {
     if !text.isEmpty {
       devList = originalList.filter({ (devs) -> Bool in
-        return (devs.login?.lowercased().contains(text.lowercased()) ?? false)
+        let username = devs.login?.lowercased().contains(text.lowercased())
+        let notes = devs.notes?.lowercased().contains(text.lowercased())
+        return (username == true || notes == true)
       })
     } else {
       devList = originalList

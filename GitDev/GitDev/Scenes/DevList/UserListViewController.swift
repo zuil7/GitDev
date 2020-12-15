@@ -6,7 +6,8 @@
 //  Copyright © 2020 Louise Nicolas Namoc. All rights reserved.
 //
 
-import Reachability
+import Combine
+import Connectivity
 import UIKit
 
 class UserListViewController: UIViewController {
@@ -40,19 +41,23 @@ class UserListViewController: UIViewController {
   private var queue = OperationQueue()
   private var isSearching: Bool = false
 
-  private let reachability = try! Reachability()
+  private let connectivity = Connectivity()
+  private var cancellable: AnyCancellable?
+
   private var isComingFromOffline: Bool = false
+  private var isOffline: Bool = false
+
   override func viewDidLoad() {
     super.viewDidLoad()
     setupSearchBar()
     setupTableView()
     setupToastView()
-    setupReachability()
+    setupConnectiviy()
   }
 
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    setupReachabilityNotifier()
+    setupConnectivityNotifier()
     tableView.reloadData()
   }
 }
@@ -66,40 +71,42 @@ private extension UserListViewController {
     tableView.register(cell: DevListCell.self)
   }
 
-  func setupReachability() {
-    Connection.shared.hasConnection { status in
-      if status {
-        getUsers()
-      } else {
-        showOfflineToastBar()
-        getOfflineUsers()
-      }
+  func setupConnectiviy() {
+    if isOffline {
+      showOfflineToastBar()
+      getOfflineUsers()
+    } else {
+      getUsers()
     }
   }
 
-  func setupReachabilityNotifier() {
-    NotificationCenter.default.addObserver(self, selector: #selector(reachabilityChanged(note:)), name: .reachabilityChanged, object: reachability)
-    do {
-      try reachability.startNotifier()
-    } catch {
-      print("could not start reachability notifier")
-    }
+  func setupConnectivityNotifier() {
+    let publisher = Connectivity.Publisher()
+    cancellable = publisher.receive(on: DispatchQueue.main)
+      .eraseToAnyPublisher()
+      .sink(receiveCompletion: { _ in
+      }, receiveValue: { [weak self] connectivity in
+        guard let s = self else {
+          return
+        }
+        s.updateConnectionStatus(connectivity.status)
+      })
   }
 
-  @objc
-  func reachabilityChanged(note: Notification) {
-    let reachability = note.object as! Reachability
-    print("reachabilityChanged >>>>")
-
-    switch reachability.connection {
-    case .wifi, .cellular:
+  func updateConnectionStatus(_ status: Connectivity.Status) {
+    switch status {
+    case .connectedViaWiFi, .connectedViaCellular, .connected:
+      isOffline = false
       if isComingFromOffline {
         isComingFromOffline = false
-        showOfflineToastBar()
+        showOnlineToastBar()
       }
-    case .unavailable, .none:
+    case .connectedViaWiFiWithoutInternet, .connectedViaCellularWithoutInternet, .notConnected:
+      isOffline = true
       isComingFromOffline = true
       showOfflineToastBar()
+    case .determining:
+      break
     }
   }
 
@@ -138,6 +145,7 @@ private extension UserListViewController {
 
   func getOfflineUsers() {
     viewModel.getOfflineUser()
+    tableView.reloadData()
   }
 
   func showOfflineToastBar() {
@@ -187,9 +195,6 @@ extension UserListViewController: UITableViewDataSource, UITableViewDelegate {
 
   func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
     cell.selectionStyle = .none
-    if reachability.connection == .unavailable {
-      return
-    }
 
     let lastItem = viewModel.devList.count - 1
     if indexPath.row == lastItem {
@@ -198,7 +203,8 @@ extension UserListViewController: UITableViewDataSource, UITableViewDelegate {
       spinner.frame = CGRect(x: 0.0, y: 0.0, width: tableView.bounds.width, height: 44.0)
       tableView.tableFooterView = spinner
 
-      if !isSearching {
+      if !isSearching && !isOffline {
+        toastView.isHidden = true
         getUsers()
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
           tableView.tableFooterView = nil

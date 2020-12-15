@@ -10,4 +10,6 @@ target 'GitDev' do
   pod 'SwiftLint'
   pod 'R.swift'
   pod 'SkeletonView'
+  pod 'ReachabilitySwift'
+
 end

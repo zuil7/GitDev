@@ -11,24 +11,25 @@ import XCTest
 
 class GitDevTests: XCTestCase {
 
-    override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
+  private var viewModel = DevListViewModel(task: DevListService())
+  private var devDetailViewModel = DevDetailViewModel(task: DevDetailsService())
 
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
+  func testDevList() {
+    let expect = expectation(description: "Get Developer List")
+    viewModel.requestDevList { (status) in
+      XCTAssertTrue(status)
+      expect.fulfill()
+    } onError: { (err) in }
+    waitForExpectations(timeout: 5, handler: .none)
+  }
+  
+  func testDevInfo() {
+    let expect = expectation(description: "Get Developer Details")
+    devDetailViewModel.requestDevInfo{ (status) in
+      XCTAssertTrue(status)
+      expect.fulfill()
+    } onError: { (err) in }
+    waitForExpectations(timeout: 5, handler: .none)
+  }
 
 }

@@ -26,3 +26,6 @@ no.blog = "No blog URL";
 
 no.notes = "Enter Notes";
 save.title = "Notes saved!";
+
+offline.title = "OFFLINE";
+online.title = "ONLINE";

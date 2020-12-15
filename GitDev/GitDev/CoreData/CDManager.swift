@@ -120,7 +120,7 @@ class CDManager {
     let predicate = NSPredicate(format: "id = '\(dev.id)'")
     fetch.predicate = predicate
     do {
-      let result = try persistentContainer.viewContext.fetch(fetch)
+      let result = try managedObject.fetch(fetch)
       if let objectToUpdate = result.first {
         objectToUpdate.setValue(notes, forKey: "notes")
       }
@@ -132,12 +132,12 @@ class CDManager {
   }
 
   func thereIsNotes(id: Int) -> Bool {
-    let fetch = NSFetchRequest<Devs>(entityName: "Devs")
+    let fetch = NSFetchRequest<DevNotes>(entityName: "DevNotes")
 
     let predicate = NSPredicate(format: "id = '\(id)'")
     fetch.predicate = predicate
     do {
-      let result = try persistentContainer.viewContext.fetch(fetch)
+      let result = try managedObject.fetch(fetch)
       if let item = result.first {
         if let note = item.notes {
           return note.isEmpty ? false : true
@@ -155,7 +155,7 @@ class CDManager {
     let predicate = NSPredicate(format: "id = '\(id)'")
     fetch.predicate = predicate
     do {
-      let result = try persistentContainer.viewContext.fetch(fetch)
+      let result = try managedObject.fetch(fetch)
       if let item = result.first {
         if let note = item.notes {
           return note
@@ -165,5 +165,21 @@ class CDManager {
       print(error)
     }
     return .empty
+  }
+  
+  func getUsers() -> [Devs] {
+    let fetch = NSFetchRequest<Devs>(entityName: "Devs")
+    let sortDescriptor = NSSortDescriptor(key: "id", ascending: true)
+    fetch.sortDescriptors = [sortDescriptor]
+    
+    do {
+        let users = try managedObject.fetch(fetch)
+        return users
+    } catch let error {
+        print(error)
+    }
+    
+    return []
+
   }
 }

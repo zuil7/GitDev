@@ -6,6 +6,7 @@
 //  Copyright © 2020 Louise Nicolas Namoc. All rights reserved.
 //
 
+import Reachability
 import UIKit
 
 class UserListViewController: UIViewController {
@@ -22,18 +23,36 @@ class UserListViewController: UIViewController {
     return tableView
   }()
 
+  private lazy var toastView: UIView = {
+    let view = UIView()
+    view.translatesAutoresizingMaskIntoConstraints = false
+    return view
+  }()
+
+  private lazy var toastLabel: UILabel = {
+    let label = UILabel()
+    label.textColor = .white
+    label.translatesAutoresizingMaskIntoConstraints = false
+    return label
+  }()
+
   private var viewModel = DevListViewModel(task: DevListService())
   private var queue = OperationQueue()
   private var isSearching: Bool = false
+
+  private let reachability = try! Reachability()
+  private var isComingFromOffline: Bool = false
   override func viewDidLoad() {
     super.viewDidLoad()
     setupSearchBar()
     setupTableView()
-    getUsers()
+    setupToastView()
+    setupReachability()
   }
 
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
+    setupReachabilityNotifier()
     tableView.reloadData()
   }
 }
@@ -45,6 +64,62 @@ private extension UserListViewController {
     tableView.delegate = self
     tableView.dataSource = self
     tableView.register(cell: DevListCell.self)
+  }
+
+  func setupReachability() {
+    Connection.shared.hasConnection { status in
+      if status {
+        getUsers()
+      } else {
+        showOfflineToastBar()
+        getOfflineUsers()
+      }
+    }
+  }
+
+  func setupReachabilityNotifier() {
+    NotificationCenter.default.addObserver(self, selector: #selector(reachabilityChanged(note:)), name: .reachabilityChanged, object: reachability)
+    do {
+      try reachability.startNotifier()
+    } catch {
+      print("could not start reachability notifier")
+    }
+  }
+
+  @objc
+  func reachabilityChanged(note: Notification) {
+    let reachability = note.object as! Reachability
+    print("reachabilityChanged >>>>")
+
+    switch reachability.connection {
+    case .wifi, .cellular:
+      if isComingFromOffline {
+        isComingFromOffline = false
+        showOfflineToastBar()
+      }
+    case .unavailable, .none:
+      isComingFromOffline = true
+      showOfflineToastBar()
+    }
+  }
+
+  func setupToastView() {
+    view.addSubview(toastView)
+    NSLayoutConstraint.activate([
+      toastView.topAnchor.constraint(equalTo: view.topAnchor),
+      toastView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+      toastView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+      toastView.heightAnchor.constraint(equalToConstant: 70)
+    ])
+
+    toastView.addSubview(toastLabel)
+
+    NSLayoutConstraint.activate([
+      toastLabel.centerYAnchor.constraint(equalTo: toastView.centerYAnchor),
+      toastLabel.centerXAnchor.constraint(equalTo: toastView.centerXAnchor)
+    ])
+
+    toastView.isHidden = true
   }
 
   func setupSearchBar() {
@@ -59,6 +134,29 @@ private extension UserListViewController {
       onSuccess: onHandleSuccess(),
       onError: onHandleError()
     )
+  }
+
+  func getOfflineUsers() {
+    viewModel.getOfflineUser()
+  }
+
+  func showOfflineToastBar() {
+    toastView.backgroundColor = .red
+    toastLabel.text = S.offlineTitle()
+
+    toastView.isHidden = false
+  }
+
+  private func showOnlineToastBar() {
+    toastView.backgroundColor = .green
+    toastLabel.text = S.onlineTitle()
+
+    toastView.isHidden = false
+
+    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5)) {
+      [unowned self] in
+      self.toastView.isHidden = true
+    }
   }
 }
 
@@ -88,9 +186,10 @@ extension UserListViewController: UITableViewDataSource, UITableViewDelegate {
   }
 
   func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//      if let reachability = try? Reachability(), reachability.connection == .unavailable {
-//          return
-//      }
+    cell.selectionStyle = .none
+    if reachability.connection == .unavailable {
+      return
+    }
 
     let lastItem = viewModel.devList.count - 1
     if indexPath.row == lastItem {

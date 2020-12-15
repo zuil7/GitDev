@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		487C854A25879CF600267DA9 /* SkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487C854925879CF600267DA9 /* SkeletonView.swift */; };
+		487C859D2587B0E500267DA9 /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487C859C2587B0E500267DA9 /* Connection.swift */; };
+		487C85EC2587B91E00267DA9 /* GitDevModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487C85EB2587B91E00267DA9 /* GitDevModelTest.swift */; };
+		487C85FC2587BBFA00267DA9 /* DevList_200.json in Resources */ = {isa = PBXBuildFile; fileRef = 487C85FB2587BBFA00267DA9 /* DevList_200.json */; };
+		487C86042587BCBE00267DA9 /* DevDetails_200.json in Resources */ = {isa = PBXBuildFile; fileRef = 487C86032587BCBE00267DA9 /* DevDetails_200.json */; };
 		48C3AD98258596C0005D3316 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 48C3AD97258596C0005D3316 /* Localizable.strings */; };
 		48C3ADB125859790005D3316 /* Alias.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C3ADB025859790005D3316 /* Alias.swift */; };
 		48C3ADBC258598CA005D3316 /* UserListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C3ADBA258598CA005D3316 /* UserListViewController.swift */; };
@@ -69,6 +73,10 @@
 /* Begin PBXFileReference section */
 		14BF60F8CC1561DD64184B19 /* Pods-GitDev.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitDev.debug.xcconfig"; path = "Target Support Files/Pods-GitDev/Pods-GitDev.debug.xcconfig"; sourceTree = "<group>"; };
 		487C854925879CF600267DA9 /* SkeletonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonView.swift; sourceTree = "<group>"; };
+		487C859C2587B0E500267DA9 /* Connection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connection.swift; sourceTree = "<group>"; };
+		487C85EB2587B91E00267DA9 /* GitDevModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitDevModelTest.swift; sourceTree = "<group>"; };
+		487C85FB2587BBFA00267DA9 /* DevList_200.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = DevList_200.json; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.json; };
+		487C86032587BCBE00267DA9 /* DevDetails_200.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DevDetails_200.json; sourceTree = "<group>"; };
 		48C3AD97258596C0005D3316 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		48C3ADB025859790005D3316 /* Alias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alias.swift; sourceTree = "<group>"; };
 		48C3ADBA258598CA005D3316 /* UserListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserListViewController.swift; sourceTree = "<group>"; };
@@ -204,6 +212,7 @@
 			isa = PBXGroup;
 			children = (
 				48C3ADD12585B0F0005D3316 /* BaseService.swift */,
+				487C859C2587B0E500267DA9 /* Connection.swift */,
 			);
 			path = "Network Services";
 			sourceTree = "<group>";
@@ -341,8 +350,11 @@
 		48E29835247A37FC00B6A520 /* GitDevTests */ = {
 			isa = PBXGroup;
 			children = (
+				487C86032587BCBE00267DA9 /* DevDetails_200.json */,
 				48E29836247A37FC00B6A520 /* GitDevTests.swift */,
 				48E29838247A37FC00B6A520 /* Info.plist */,
+				487C85EB2587B91E00267DA9 /* GitDevModelTest.swift */,
+				487C85FB2587BBFA00267DA9 /* DevList_200.json */,
 			);
 			path = GitDevTests;
 			sourceTree = "<group>";
@@ -534,6 +546,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				487C85FC2587BBFA00267DA9 /* DevList_200.json in Resources */,
+				487C86042587BCBE00267DA9 /* DevDetails_200.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -633,6 +647,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				48C3ADE62585B438005D3316 /* UITableView+Register.swift in Sources */,
+				487C859D2587B0E500267DA9 /* Connection.swift in Sources */,
 				48CDC9E825872AEC00D7FDC2 /* DevDetailViewModel.swift in Sources */,
 				48C3AE1F2585D1E8005D3316 /* UIViewcontroller+AlertMessage.swift in Sources */,
 				48C3AE362585F4A6005D3316 /* CDDevs.xcdatamodeld in Sources */,
@@ -670,6 +685,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				487C85EC2587B91E00267DA9 /* GitDevModelTest.swift in Sources */,
 				48E29837247A37FC00B6A520 /* GitDevTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -838,15 +854,18 @@
 			baseConfigurationReference = 14BF60F8CC1561DD64184B19 /* Pods-GitDev.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7428VFHT84;
 				INFOPLIST_FILE = GitDev/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.louise;
+				PRODUCT_BUNDLE_IDENTIFIER = com.iremit.GitDev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -857,15 +876,18 @@
 			baseConfigurationReference = 4AA1EF9E020742109F698F88 /* Pods-GitDev.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7428VFHT84;
 				INFOPLIST_FILE = GitDev/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.louise;
+				PRODUCT_BUNDLE_IDENTIFIER = com.iremit.GitDev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

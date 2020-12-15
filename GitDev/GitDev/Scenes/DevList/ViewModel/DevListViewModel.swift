@@ -89,4 +89,10 @@ final class DevListViewModel: DevListViewModelProtocol {
   func setOriginalList() {
     devList = originalList
   }
+  
+  func getOfflineUser() {
+    devList = CDManager.shared.getUsers()
+    originalList = CDManager.shared.getUsers()
+
+  }
 }

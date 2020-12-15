@@ -9,7 +9,6 @@
 import Foundation
 
 // MARK: - DevListResponseElement
-
 struct DevListResponseElement: Codable {
   let login: String
   let id: Int

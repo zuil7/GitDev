@@ -8,10 +8,12 @@
 
 import Foundation
 
+// MARK: - Protocol for DevListService
 protocol DevListServiceProtocol {
   func getDevList(id: Int, onHandleCompletion: @escaping ResultClosure<DevListResponse>)
 }
 
+// MARK: - DevListService Service for API request
 final class DevListService: BaseService, DevListServiceProtocol {
   func getDevList(id: Int, onHandleCompletion: @escaping ResultClosure<DevListResponse>) {
     let url: URL! = URL(string: "https://api.github.com/users?since=\(id)")

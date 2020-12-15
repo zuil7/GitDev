@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 import Combine
 
+// MARK: - Singleton Image Loader
+
 final class ImageLoader {
     
     // MARK: - Properties

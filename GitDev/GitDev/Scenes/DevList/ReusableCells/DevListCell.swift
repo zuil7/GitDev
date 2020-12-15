@@ -73,14 +73,17 @@ class DevListCell: UITableViewCell {
     notesUIImageview.isHidden = true
   }
 
+  // MARK: - Show All Skeleton View
   func showSkeletalView() {
     [avatarUIImageView, usernameLabel, uriLabel].forEach { $0?.showAnimatedSkeleton() }
   }
 
+  // MARK: - Hide All Skeleton View
   func hideSkeletalView() {
     [avatarUIImageView, usernameLabel, uriLabel].forEach { $0?.hideSkeleton() }
   }
 
+  // MARK: - Configure Cell
   func configureCell(user: Devs, idx: Int) {
     hideSkeletalView()
     let changeColor = (idx + 1) % 4 == 0 && idx > 0
@@ -99,7 +102,8 @@ class DevListCell: UITableViewCell {
     }
     notesUIImageview.isHidden = !CDManager.shared.thereIsNotes(id: Int(user.id))
   }
-
+  
+  // MARK: - Invert Image Color
   private func changeImage(image: UIImage?) {
     if let filter = CIFilter(name: "CIColorInvert"),
       let image = image,
@@ -112,6 +116,7 @@ class DevListCell: UITableViewCell {
 }
 
 private extension DevListCell {
+  // MARK: - UI Setup using Autolayout
   func setupUIElements() {
     avatarUIImageView.translatesAutoresizingMaskIntoConstraints = false
     avatarUIImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true

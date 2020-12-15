@@ -8,12 +8,13 @@
 
 import Foundation
 
+// MARK: - DevDetailsService Protocol
 protocol DevDetailsServiceProtocol {
   func getDevDetails(username: String, onHandleCompletion: @escaping ResultClosure<DevDetailsResponse>)
 }
 
 final class DevDetailsService: BaseService, DevDetailsServiceProtocol {
-  
+  // MARK: - Request Dev Details
   func getDevDetails(username: String, onHandleCompletion: @escaping ResultClosure<DevDetailsResponse>) {
     
     let url: URL! = URL(string: "https://api.github.com/users/\(username)")

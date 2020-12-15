@@ -8,9 +8,7 @@
 
 import Foundation
 
-protocol BaseServiceProtocol {
-  var urlRequest: URLRequest { get }
-}
+// MARK: - BaseService for API request
 
 class BaseService {
   let urlSession: URLSession
@@ -29,12 +27,10 @@ class BaseService {
       let successRange = 200 ... 299
       if successRange.contains(uriResponse.statusCode) {
         guard let responseData = data else { return }
-        print("JSON String: \(String(data: responseData, encoding: .utf8))")
 
         do {
           guard let codingUserInfoKeyManagedObjectContext = CodingUserInfoKey.managedObjectContext else {
             fatalError("Error Core Data")
-
             return
           }
           let managedObjectContext = CDManager.shared.persistentContainer.viewContext

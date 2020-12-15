@@ -63,6 +63,7 @@ class UserListViewController: UIViewController {
 }
 
 private extension UserListViewController {
+  // MARK: - Setup Tableview
   func setupTableView() {
     view.addSubview(tableView)
     tableView.frame = view.bounds
@@ -70,7 +71,8 @@ private extension UserListViewController {
     tableView.dataSource = self
     tableView.register(cell: DevListCell.self)
   }
-
+  
+  // MARK: - Check Connectivity and load user according if online or offline
   func setupConnectiviy() {
     if isOffline {
       showOfflineToastBar()
@@ -79,7 +81,8 @@ private extension UserListViewController {
       getUsers()
     }
   }
-
+  
+  // MARK: - Setup Connectivity Observer
   func setupConnectivityNotifier() {
     let publisher = Connectivity.Publisher()
     cancellable = publisher.receive(on: DispatchQueue.main)
@@ -92,7 +95,8 @@ private extension UserListViewController {
         s.updateConnectionStatus(connectivity.status)
       })
   }
-
+  
+  // MARK: - Check update connectivity and display online or offline
   func updateConnectionStatus(_ status: Connectivity.Status) {
     switch status {
     case .connectedViaWiFi, .connectedViaCellular, .connected:
@@ -110,6 +114,7 @@ private extension UserListViewController {
     }
   }
 
+  // MARK: - Setup Toast View for Online and Offline
   func setupToastView() {
     view.addSubview(toastView)
     NSLayoutConstraint.activate([
@@ -128,34 +133,39 @@ private extension UserListViewController {
 
     toastView.isHidden = true
   }
-
+  
+  // MARK: - Setup Search Bar
   func setupSearchBar() {
     title = S.userListTitle()
     searchBar.delegate = self
     navigationController?.navigationBar.prefersLargeTitles = true
     navigationItem.searchController = searchBar
   }
-
+  
+  // MARK: - Get Devs
   func getUsers() {
     viewModel.requestDevList(
       onSuccess: onHandleSuccess(),
       onError: onHandleError()
     )
   }
-
+  
+  // MARK: - Get Devs in Core Data during offline mode
   func getOfflineUsers() {
     viewModel.getOfflineUser()
     tableView.reloadData()
   }
-
+  
+  // MARK: - Show offline toast
   func showOfflineToastBar() {
     toastView.backgroundColor = .red
     toastLabel.text = S.offlineTitle()
 
     toastView.isHidden = false
   }
-
-  private func showOnlineToastBar() {
+  
+  // MARK: - Show online toast view
+   func showOnlineToastBar() {
     toastView.backgroundColor = .green
     toastLabel.text = S.onlineTitle()
 
@@ -223,6 +233,7 @@ extension UserListViewController: UITableViewDataSource, UITableViewDelegate {
 }
 
 private extension UserListViewController {
+  // MARK: - On Success Getting Dev list
   func onHandleSuccess() -> SingleResult<Bool> {
     return { [weak self] status in
       guard let s = self, status else { return }
@@ -231,7 +242,8 @@ private extension UserListViewController {
       }
     }
   }
-
+  
+  // MARK: - Display Error encountered after fetch
   func onHandleError() -> SingleResult<String> {
     return { [weak self] message in
       guard let s = self else { return }
@@ -241,6 +253,7 @@ private extension UserListViewController {
 }
 
 extension UserListViewController: UISearchControllerDelegate, UISearchResultsUpdating {
+  // MARK: - Update Search Result
   func updateSearchResults(for searchController: UISearchController) {
     if let text = searchController.searchBar.text, !text.isEmpty {
       isSearching = true

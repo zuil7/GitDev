@@ -8,6 +8,8 @@
 
 import CoreData
 
+// MARK: - Singleton Core Data Manager
+
 class CDManager {
   static let shared = CDManager()
 

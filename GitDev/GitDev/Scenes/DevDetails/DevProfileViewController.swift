@@ -47,31 +47,36 @@ class DevProfileViewController: UIViewController {
 }
 
 private extension DevProfileViewController {
+  // MARK: - Setup UI Elements
   func setupUIElements() {
     notesTextView.layer.borderWidth = 1
     notesTextView.layer.borderColor = traitCollection.userInterfaceStyle == .dark ? UIColor.white.cgColor : UIColor.black.cgColor
     notesTextView.layer.cornerRadius = 5
     saveButton.isEnabled = false
   }
-
+  
+  // MARK: - Show Skeleton View
   func showSkeleton() {
     [avatarImage, followerLabel,
      followingLabel, nameLabel,
      companyLabel, blogLabel,
      notesTitleLabel, noteViewContainer].forEach { $0?.showAnimatedSkeleton() }
   }
-
+  
+  // MARK: - Hide Skeleton View
   func hideSkeleton() {
     [avatarImage, followerLabel,
      followingLabel, nameLabel,
      companyLabel, blogLabel,
      notesTitleLabel, noteViewContainer].forEach { $0?.hideSkeleton() }
   }
-
+  
+  // MARK: - Request Dev Details
   func getDevDetails() {
     viewModel.requestDevInfo(onSuccess: onHandleSuccess(), onError: onHandleError())
   }
-
+  
+  // MARK: - Populate Data after fetch
   func populateDetails() {
     hideSkeleton()
     title = viewModel.devInfo?.name ?? S.noName()
@@ -93,6 +98,7 @@ private extension DevProfileViewController {
 }
 
 private extension DevProfileViewController {
+  // MARK: - Save Button Action
   @IBAction func saveButtonTapped(_ sender: UIButton) {
     view.endEditing(true)
     guard !notesTextView.text.isEmpty else {
@@ -106,6 +112,7 @@ private extension DevProfileViewController {
 }
 
 private extension DevProfileViewController {
+  // MARK: - On Success Dev Details Fetch
   func onHandleSuccess() -> SingleResult<Bool> {
     return { [weak self] status in
       guard let s = self, status else { return }
@@ -115,6 +122,7 @@ private extension DevProfileViewController {
     }
   }
 
+  // MARK: - On Success Save Save Notes
   func onSaveSuccess() -> SingleResult<Bool> {
     return { [weak self] status in
       guard let s = self, status else { return }
@@ -123,7 +131,8 @@ private extension DevProfileViewController {
       }
     }
   }
-
+  
+  // MARK: - Display Error encountered after fetch
   func onHandleError() -> SingleResult<String> {
     return { [weak self] message in
       guard let s = self else { return }

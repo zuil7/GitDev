@@ -8,6 +8,8 @@
 
 import Foundation
 
+// MARK: - Protocol for DevListViewModel
+
 protocol DevListViewModelProtocol {
   var lastDevId: Int { get set }
   var sinceId: Int { get set }
@@ -34,6 +36,7 @@ final class DevListViewModel: DevListViewModelProtocol {
     queue.maxConcurrentOperationCount = 1
   }
 
+  // MARK: - request for Dev List
   func requestDevList(
     onSuccess: @escaping SingleResult<Bool>,
     onError: @escaping SingleResult<String>
@@ -71,11 +74,13 @@ final class DevListViewModel: DevListViewModelProtocol {
     queue.addOperation(block)
   }
 
+  // MARK: - Save to core data
   func saveToCD() {
     CDManager.shared.saveContext()
     sinceId = Int(devList[devList.count - 1].id)
   }
 
+  // MARK: - Search processing
   func searchProcess(text: String) {
     if !text.isEmpty {
       devList = originalList.filter({ (devs) -> Bool in
@@ -88,10 +93,12 @@ final class DevListViewModel: DevListViewModelProtocol {
     }
   }
   
+  // MARK: - After clear search set it back to original list
   func setOriginalList() {
     devList = originalList
   }
   
+  // MARK: - Fetch users of no connection
   func getOfflineUser() {
     devList = CDManager.shared.getUsers()
     originalList = CDManager.shared.getUsers()

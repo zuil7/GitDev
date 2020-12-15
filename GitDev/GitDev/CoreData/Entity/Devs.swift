@@ -14,6 +14,8 @@ extension CodingUserInfoKey {
   static let managedObjectContext = CodingUserInfoKey(rawValue: "managedObjectContext")
 }
 
+// MARK: - Devs Entity
+
 @objc(Devs)
 
 public class Devs: NSManagedObject, Codable {

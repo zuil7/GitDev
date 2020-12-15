@@ -10,6 +10,8 @@
 import Foundation
 import CoreData
 
+// MARK: - Devnotes Entity
+
 @objc(DevNotes)
 public class DevNotes: NSManagedObject {
   @nonobjc public class func fetchRequest() -> NSFetchRequest<DevNotes> {

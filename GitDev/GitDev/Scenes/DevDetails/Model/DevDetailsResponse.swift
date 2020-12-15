@@ -9,7 +9,6 @@
 import Foundation
 
 // MARK: - DevDetailsResponse
-
 struct DevDetailsResponse: Codable {
   let login: String
   let id: Int
